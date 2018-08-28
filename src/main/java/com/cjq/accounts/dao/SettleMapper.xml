@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjq.accounts.dao.SettleMapper" >
+  <resultMap id="BaseResultMap" type="com.cjq.accounts.entity.Settle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="month_date" property="monthDate" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="food_sum" property="foodSum" jdbcType="REAL" />
+    <result column="before_sum" property="beforeSum" jdbcType="REAL" />
+    <result column="after_sum" property="afterSum" jdbcType="REAL" />
+    <result column="wqx_to_cjq" property="wqxToCjq" jdbcType="REAL" />
+    <result column="need_sum" property="needSum" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="MysqlDialectSuffix" >
+    <if test="page != null" >
+       limit #{page.begin} , #{page.pageSize}
+    </if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, month_date, flag, food_sum, before_sum, after_sum, wqx_to_cjq, need_sum
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjq.accounts.entity.SettleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from settle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MysqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from settle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from settle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cjq.accounts.entity.SettleExample" >
+    delete from settle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cjq.accounts.entity.Settle" >
+    insert into settle (id, month_date, flag, 
+      food_sum, before_sum, after_sum, 
+      wqx_to_cjq, need_sum)
+    values (#{id,jdbcType=INTEGER}, #{monthDate,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{foodSum,jdbcType=REAL}, #{beforeSum,jdbcType=REAL}, #{afterSum,jdbcType=REAL}, 
+      #{wqxToCjq,jdbcType=REAL}, #{needSum,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cjq.accounts.entity.Settle" >
+    insert into settle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="monthDate != null" >
+        month_date,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="foodSum != null" >
+        food_sum,
+      </if>
+      <if test="beforeSum != null" >
+        before_sum,
+      </if>
+      <if test="afterSum != null" >
+        after_sum,
+      </if>
+      <if test="wqxToCjq != null" >
+        wqx_to_cjq,
+      </if>
+      <if test="needSum != null" >
+        need_sum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="monthDate != null" >
+        #{monthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSum != null" >
+        #{foodSum,jdbcType=REAL},
+      </if>
+      <if test="beforeSum != null" >
+        #{beforeSum,jdbcType=REAL},
+      </if>
+      <if test="afterSum != null" >
+        #{afterSum,jdbcType=REAL},
+      </if>
+      <if test="wqxToCjq != null" >
+        #{wqxToCjq,jdbcType=REAL},
+      </if>
+      <if test="needSum != null" >
+        #{needSum,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cjq.accounts.entity.SettleExample" resultType="java.lang.Integer" >
+    select count(*) from settle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update settle
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.monthDate != null" >
+        month_date = #{record.monthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodSum != null" >
+        food_sum = #{record.foodSum,jdbcType=REAL},
+      </if>
+      <if test="record.beforeSum != null" >
+        before_sum = #{record.beforeSum,jdbcType=REAL},
+      </if>
+      <if test="record.afterSum != null" >
+        after_sum = #{record.afterSum,jdbcType=REAL},
+      </if>
+      <if test="record.wqxToCjq != null" >
+        wqx_to_cjq = #{record.wqxToCjq,jdbcType=REAL},
+      </if>
+      <if test="record.needSum != null" >
+        need_sum = #{record.needSum,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update settle
+    set id = #{record.id,jdbcType=INTEGER},
+      month_date = #{record.monthDate,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      food_sum = #{record.foodSum,jdbcType=REAL},
+      before_sum = #{record.beforeSum,jdbcType=REAL},
+      after_sum = #{record.afterSum,jdbcType=REAL},
+      wqx_to_cjq = #{record.wqxToCjq,jdbcType=REAL},
+      need_sum = #{record.needSum,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjq.accounts.entity.Settle" >
+    update settle
+    <set >
+      <if test="monthDate != null" >
+        month_date = #{monthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSum != null" >
+        food_sum = #{foodSum,jdbcType=REAL},
+      </if>
+      <if test="beforeSum != null" >
+        before_sum = #{beforeSum,jdbcType=REAL},
+      </if>
+      <if test="afterSum != null" >
+        after_sum = #{afterSum,jdbcType=REAL},
+      </if>
+      <if test="wqxToCjq != null" >
+        wqx_to_cjq = #{wqxToCjq,jdbcType=REAL},
+      </if>
+      <if test="needSum != null" >
+        need_sum = #{needSum,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cjq.accounts.entity.Settle" >
+    update settle
+    set month_date = #{monthDate,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      food_sum = #{foodSum,jdbcType=REAL},
+      before_sum = #{beforeSum,jdbcType=REAL},
+      after_sum = #{afterSum,jdbcType=REAL},
+      wqx_to_cjq = #{wqxToCjq,jdbcType=REAL},
+      need_sum = #{needSum,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

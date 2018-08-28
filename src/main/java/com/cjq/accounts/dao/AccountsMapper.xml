@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjq.accounts.dao.AccountsMapper" >
+  <resultMap id="BaseResultMap" type="com.cjq.accounts.entity.Accounts" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="breakfast" property="breakfast" jdbcType="REAL" />
+    <result column="lunch" property="lunch" jdbcType="REAL" />
+    <result column="supper" property="supper" jdbcType="REAL" />
+    <result column="egg" property="egg" jdbcType="REAL" />
+    <result column="fruit" property="fruit" jdbcType="REAL" />
+    <result column="drink" property="drink" jdbcType="REAL" />
+    <result column="food" property="food" jdbcType="REAL" />
+    <result column="rice" property="rice" jdbcType="REAL" />
+    <result column="cake" property="cake" jdbcType="REAL" />
+    <result column="supermarket" property="supermarket" jdbcType="REAL" />
+    <result column="traffic" property="traffic" jdbcType="REAL" />
+    <result column="soy" property="soy" jdbcType="REAL" />
+    <result column="gass" property="gass" jdbcType="REAL" />
+    <result column="phone" property="phone" jdbcType="REAL" />
+    <result column="rent" property="rent" jdbcType="REAL" />
+    <result column="total_food" property="totalFood" jdbcType="REAL" />
+    <result column="total" property="total" jdbcType="REAL" />
+    <result column="add_date" property="addDate" jdbcType="DATE" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="needSum" property="needsum" jdbcType="REAL" />
+    <result column="football" property="football" jdbcType="REAL" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.cjq.accounts.dto.AccountsDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="breakfast" property="breakfast" jdbcType="REAL" />
+    <result column="lunch" property="lunch" jdbcType="REAL" />
+    <result column="supper" property="supper" jdbcType="REAL" />
+    <result column="egg" property="egg" jdbcType="REAL" />
+    <result column="fruit" property="fruit" jdbcType="REAL" />
+    <result column="drink" property="drink" jdbcType="REAL" />
+    <result column="food" property="food" jdbcType="REAL" />
+    <result column="rice" property="rice" jdbcType="REAL" />
+    <result column="cake" property="cake" jdbcType="REAL" />
+    <result column="supermarket" property="supermarket" jdbcType="REAL" />
+    <result column="traffic" property="traffic" jdbcType="REAL" />
+    <result column="soy" property="soy" jdbcType="REAL" />
+    <result column="gass" property="gass" jdbcType="REAL" />
+    <result column="phone" property="phone" jdbcType="REAL" />
+    <result column="rent" property="rent" jdbcType="REAL" />
+    <result column="total_food" property="totalFood" jdbcType="REAL" />
+    <result column="total" property="total" jdbcType="REAL" />
+    <result column="add_date" property="addDate" jdbcType="DATE" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="needSum" property="needsum" jdbcType="REAL" />
+    <result column="football" property="football" jdbcType="REAL" />
+    <collection property="otherAccountsList" resultMap="com.cjq.accounts.dao.OtherAccountsMapper.DtoResultMap"/>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Example_Where_Clause_Complex" >
+      <if test="accountsExample != null">
+        <foreach collection="accountsExample.oredCriteria" item="criteria" separator="or" >
+          <if test="criteria.valid" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and a.${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and a.${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and a.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and a.${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </if>
+        </foreach>
+      </if>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="MysqlDialectSuffix" >
+    <if test="page != null" >
+       limit #{page.begin} , #{page.pageSize}
+    </if>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, breakfast, lunch, supper, egg, fruit, drink, food, rice, cake, supermarket, traffic, 
+    soy, gass, phone, rent, total_food, total, add_date, flag, needSum,
+    football
+  </sql>
+  <sql id="Base_Column_List_Complex" >
+    a.id, a.breakfast, a.lunch, a.supper, a.egg, a.fruit, a.drink, a.food, a.rice, a.cake, a.supermarket, a.traffic,
+    a.soy, a.gass, a.phone, a.rent, a.total_food, a.total, a.add_date, a.flag, a.needSum,
+    a.football
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjq.accounts.entity.AccountsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from accounts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="MysqlDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from accounts
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from accounts
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cjq.accounts.entity.AccountsExample" >
+    delete from accounts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cjq.accounts.entity.Accounts" >
+    insert into accounts (id, breakfast, lunch, 
+      supper, egg, fruit, drink, 
+      food, rice, cake, supermarket, 
+      traffic, soy, gass, phone, 
+      rent, total_food,
+      total, add_date, flag, needSum, 
+      football)
+    values (#{id,jdbcType=INTEGER}, #{breakfast,jdbcType=REAL}, #{lunch,jdbcType=REAL}, 
+      #{supper,jdbcType=REAL}, #{egg,jdbcType=REAL}, #{fruit,jdbcType=REAL}, #{drink,jdbcType=REAL}, 
+      #{food,jdbcType=REAL}, #{rice,jdbcType=REAL}, #{cake,jdbcType=REAL}, #{supermarket,jdbcType=REAL}, 
+      #{traffic,jdbcType=REAL}, #{soy,jdbcType=REAL}, #{gass,jdbcType=REAL}, #{phone,jdbcType=REAL}, 
+      #{rent,jdbcType=REAL}, #{totalFood,jdbcType=REAL},
+      #{total,jdbcType=REAL}, #{addDate,jdbcType=DATE}, #{flag,jdbcType=VARCHAR}, #{needsum,jdbcType=REAL}, 
+      #{football,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cjq.accounts.entity.Accounts" useGeneratedKeys="true" keyProperty="id">
+    insert into accounts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="breakfast != null" >
+        breakfast,
+      </if>
+      <if test="lunch != null" >
+        lunch,
+      </if>
+      <if test="supper != null" >
+        supper,
+      </if>
+      <if test="egg != null" >
+        egg,
+      </if>
+      <if test="fruit != null" >
+        fruit,
+      </if>
+      <if test="drink != null" >
+        drink,
+      </if>
+      <if test="food != null" >
+        food,
+      </if>
+      <if test="rice != null" >
+        rice,
+      </if>
+      <if test="cake != null" >
+        cake,
+      </if>
+      <if test="supermarket != null" >
+        supermarket,
+      </if>
+      <if test="traffic != null" >
+        traffic,
+      </if>
+      <if test="soy != null" >
+        soy,
+      </if>
+      <if test="gass != null" >
+        gass,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="rent != null" >
+        rent,
+      </if>
+      <if test="totalFood != null" >
+        total_food,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="addDate != null" >
+        add_date,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="needsum != null" >
+        needSum,
+      </if>
+      <if test="football != null" >
+        football,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="breakfast != null" >
+        #{breakfast,jdbcType=REAL},
+      </if>
+      <if test="lunch != null" >
+        #{lunch,jdbcType=REAL},
+      </if>
+      <if test="supper != null" >
+        #{supper,jdbcType=REAL},
+      </if>
+      <if test="egg != null" >
+        #{egg,jdbcType=REAL},
+      </if>
+      <if test="fruit != null" >
+        #{fruit,jdbcType=REAL},
+      </if>
+      <if test="drink != null" >
+        #{drink,jdbcType=REAL},
+      </if>
+      <if test="food != null" >
+        #{food,jdbcType=REAL},
+      </if>
+      <if test="rice != null" >
+        #{rice,jdbcType=REAL},
+      </if>
+      <if test="cake != null" >
+        #{cake,jdbcType=REAL},
+      </if>
+      <if test="supermarket != null" >
+        #{supermarket,jdbcType=REAL},
+      </if>
+      <if test="traffic != null" >
+        #{traffic,jdbcType=REAL},
+      </if>
+      <if test="soy != null" >
+        #{soy,jdbcType=REAL},
+      </if>
+      <if test="gass != null" >
+        #{gass,jdbcType=REAL},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=REAL},
+      </if>
+      <if test="rent != null" >
+        #{rent,jdbcType=REAL},
+      </if>
+      <if test="totalFood != null" >
+        #{totalFood,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=REAL},
+      </if>
+      <if test="addDate != null" >
+        #{addDate,jdbcType=DATE},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="needsum != null" >
+        #{needsum,jdbcType=REAL},
+      </if>
+      <if test="football != null" >
+        #{football,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cjq.accounts.entity.AccountsExample" resultType="java.lang.Integer" >
+    select count(*) from accounts
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update accounts
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.breakfast != null" >
+        breakfast = #{record.breakfast,jdbcType=REAL},
+      </if>
+      <if test="record.lunch != null" >
+        lunch = #{record.lunch,jdbcType=REAL},
+      </if>
+      <if test="record.supper != null" >
+        supper = #{record.supper,jdbcType=REAL},
+      </if>
+      <if test="record.egg != null" >
+        egg = #{record.egg,jdbcType=REAL},
+      </if>
+      <if test="record.fruit != null" >
+        fruit = #{record.fruit,jdbcType=REAL},
+      </if>
+      <if test="record.drink != null" >
+        drink = #{record.drink,jdbcType=REAL},
+      </if>
+      <if test="record.food != null" >
+        food = #{record.food,jdbcType=REAL},
+      </if>
+      <if test="record.rice != null" >
+        rice = #{record.rice,jdbcType=REAL},
+      </if>
+      <if test="record.cake != null" >
+        cake = #{record.cake,jdbcType=REAL},
+      </if>
+      <if test="record.supermarket != null" >
+        supermarket = #{record.supermarket,jdbcType=REAL},
+      </if>
+      <if test="record.traffic != null" >
+        traffic = #{record.traffic,jdbcType=REAL},
+      </if>
+      <if test="record.soy != null" >
+        soy = #{record.soy,jdbcType=REAL},
+      </if>
+      <if test="record.gass != null" >
+        gass = #{record.gass,jdbcType=REAL},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=REAL},
+      </if>
+      <if test="record.rent != null" >
+        rent = #{record.rent,jdbcType=REAL},
+      </if>
+      <if test="record.totalFood != null" >
+        total_food = #{record.totalFood,jdbcType=REAL},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=REAL},
+      </if>
+      <if test="record.addDate != null" >
+        add_date = #{record.addDate,jdbcType=DATE},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.needsum != null" >
+        needSum = #{record.needsum,jdbcType=REAL},
+      </if>
+      <if test="record.football != null" >
+        football = #{record.football,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update accounts
+    set id = #{record.id,jdbcType=INTEGER},
+      breakfast = #{record.breakfast,jdbcType=REAL},
+      lunch = #{record.lunch,jdbcType=REAL},
+      supper = #{record.supper,jdbcType=REAL},
+      egg = #{record.egg,jdbcType=REAL},
+      fruit = #{record.fruit,jdbcType=REAL},
+      drink = #{record.drink,jdbcType=REAL},
+      food = #{record.food,jdbcType=REAL},
+      rice = #{record.rice,jdbcType=REAL},
+      cake = #{record.cake,jdbcType=REAL},
+      supermarket = #{record.supermarket,jdbcType=REAL},
+      traffic = #{record.traffic,jdbcType=REAL},
+      soy = #{record.soy,jdbcType=REAL},
+      gass = #{record.gass,jdbcType=REAL},
+      phone = #{record.phone,jdbcType=REAL},
+      rent = #{record.rent,jdbcType=REAL},
+      total_food = #{record.totalFood,jdbcType=REAL},
+      total = #{record.total,jdbcType=REAL},
+      add_date = #{record.addDate,jdbcType=DATE},
+      flag = #{record.flag,jdbcType=VARCHAR},
+      needSum = #{record.needsum,jdbcType=REAL},
+      football = #{record.football,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjq.accounts.entity.Accounts" >
+    update accounts
+    <set >
+      <if test="breakfast != null" >
+        breakfast = #{breakfast,jdbcType=REAL},
+      </if>
+      <if test="lunch != null" >
+        lunch = #{lunch,jdbcType=REAL},
+      </if>
+      <if test="supper != null" >
+        supper = #{supper,jdbcType=REAL},
+      </if>
+      <if test="egg != null" >
+        egg = #{egg,jdbcType=REAL},
+      </if>
+      <if test="fruit != null" >
+        fruit = #{fruit,jdbcType=REAL},
+      </if>
+      <if test="drink != null" >
+        drink = #{drink,jdbcType=REAL},
+      </if>
+      <if test="food != null" >
+        food = #{food,jdbcType=REAL},
+      </if>
+      <if test="rice != null" >
+        rice = #{rice,jdbcType=REAL},
+      </if>
+      <if test="cake != null" >
+        cake = #{cake,jdbcType=REAL},
+      </if>
+      <if test="supermarket != null" >
+        supermarket = #{supermarket,jdbcType=REAL},
+      </if>
+      <if test="traffic != null" >
+        traffic = #{traffic,jdbcType=REAL},
+      </if>
+      <if test="soy != null" >
+        soy = #{soy,jdbcType=REAL},
+      </if>
+      <if test="gass != null" >
+        gass = #{gass,jdbcType=REAL},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=REAL},
+      </if>
+      <if test="rent != null" >
+        rent = #{rent,jdbcType=REAL},
+      </if>
+      <if test="totalFood != null" >
+        total_food = #{totalFood,jdbcType=REAL},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=REAL},
+      </if>
+      <if test="addDate != null" >
+        add_date = #{addDate,jdbcType=DATE},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="needsum != null" >
+        needSum = #{needsum,jdbcType=REAL},
+      </if>
+      <if test="football != null" >
+        football = #{football,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cjq.accounts.entity.Accounts" >
+    update accounts
+    set breakfast = #{breakfast,jdbcType=REAL},
+      lunch = #{lunch,jdbcType=REAL},
+      supper = #{supper,jdbcType=REAL},
+      egg = #{egg,jdbcType=REAL},
+      fruit = #{fruit,jdbcType=REAL},
+      drink = #{drink,jdbcType=REAL},
+      food = #{food,jdbcType=REAL},
+      rice = #{rice,jdbcType=REAL},
+      cake = #{cake,jdbcType=REAL},
+      supermarket = #{supermarket,jdbcType=REAL},
+      traffic = #{traffic,jdbcType=REAL},
+      soy = #{soy,jdbcType=REAL},
+      gass = #{gass,jdbcType=REAL},
+      phone = #{phone,jdbcType=REAL},
+      rent = #{rent,jdbcType=REAL},
+      total_food = #{totalFood,jdbcType=REAL},
+      total = #{total,jdbcType=REAL},
+      add_date = #{addDate,jdbcType=DATE},
+      flag = #{flag,jdbcType=VARCHAR},
+      needSum = #{needsum,jdbcType=REAL},
+      football = #{football,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="countByTotalExample" parameterType="com.cjq.accounts.entity.AccountsTotalExample" resultType="java.lang.Integer" >
+    select count(*) from accounts a
+    <if test="_parameter != null" >
+      <where>
+        <trim prefix="(" suffix=")" prefixOverrides="and" >
+          <include refid="Example_Where_Clause_Complex" />
+          <include refid="com.cjq.accounts.dao.OtherAccountsMapper.Example_Where_Clause_Complex"/>
+        </trim>
+      </where>
+    </if>
+  </select>
+  <select id="selectDtoByTotalExample" resultMap="DtoResultMap" parameterType="com.cjq.accounts.entity.AccountsTotalExample" >
+    select
+    <include refid="Base_Column_List_Complex" />
+    from accounts a
+    <if test="_parameter != null" >
+      <where>
+        <trim prefix="(" suffix=")" prefixOverrides="and" >
+          <include refid="Example_Where_Clause_Complex" />
+          <include refid="com.cjq.accounts.dao.OtherAccountsMapper.Example_Where_Clause_Complex"/>
+        </trim>
+      </where>
+    </if>
+    <if test="accountsExample.orderByClause != null" >
+      order by ${accountsExample.orderByClause}
+    </if>
+    <include refid="MysqlDialectSuffix" />
+  </select>
+  <select id="selectDtoByPrimaryKey" resultMap="DtoResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List_Complex" />,
+    <include refid="com.cjq.accounts.dao.OtherAccountsMapper.Base_Column_List_Complex"/>
+    from accounts a
+    left join other_accounts oa on oa.accounts_id = a.id
+    where a.id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
