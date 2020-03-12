@@ -140,4 +140,25 @@ public class AccountsAction{
 		return accountsService.updateInitOther(queryDto);
 	}
 
+	@RequestMapping("/settle")
+	public String settle() {
+		return "accounts/settle";
+	}
+
+	@RequestMapping("/settleQuery")
+	@ResponseBody
+	public ResultDto settleQuery(@RequestBody QueryDto queryDto) {
+		return  accountsService.settleQuery(queryDto);
+	}
+
+	@RequestMapping("/users")
+	public String users() {
+		return "accounts/users";
+	}
+
+	@RequestMapping("/usersQuery")
+	@ResponseBody
+	public ResultDto usersQuery() {
+		return  accountsService.usersQuery();
+	}
 }

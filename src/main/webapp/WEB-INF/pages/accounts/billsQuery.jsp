@@ -233,7 +233,8 @@
                   });
               },
               showOrderDetail : function(id) {
-                  window.location.href = contextPath + "/accounts/getBillById?id="+id;
+                  //window.location.href = contextPath + "/accounts/getBillById?id="+id;
+                  window.open(contextPath + "/accounts/getBillById?id="+id);
               },
               /**
                * 滚动分页查询

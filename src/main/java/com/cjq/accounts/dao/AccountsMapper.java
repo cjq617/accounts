@@ -1,6 +1,7 @@
 package com.cjq.accounts.dao;
 
 import com.cjq.accounts.dto.AccountsDto;
+import com.cjq.accounts.dto.SettleDto;
 import com.cjq.accounts.entity.Accounts;
 import com.cjq.accounts.entity.AccountsExample;
 import com.cjq.accounts.entity.AccountsTotalExample;
@@ -37,4 +38,5 @@ public interface AccountsMapper {
 
     AccountsDto selectDtoByPrimaryKey(Integer id);
 
+    List<SettleDto> selectSettle();
 }

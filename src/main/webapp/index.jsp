@@ -58,6 +58,15 @@
                     <div class="clear"></div>
                 </a>
             </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/accounts/users">
+                    <div class="ico3 fl"></div>
+                    <div class="fl">
+                        <h3>账号</h3>
+                    </div>
+                    <div class="clear"></div>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

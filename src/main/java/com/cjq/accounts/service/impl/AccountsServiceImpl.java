@@ -1,6 +1,7 @@
 package com.cjq.accounts.service.impl;
 
 import com.cjq.accounts.dao.AccountsMapper;
+import com.cjq.accounts.dao.MyUserMapper;
 import com.cjq.accounts.dao.OtherAccountsMapper;
 import com.cjq.accounts.dto.*;
 import com.cjq.accounts.entity.*;
@@ -23,19 +24,14 @@ import java.util.List;
 @Service
 public class AccountsServiceImpl implements AccountsService {
 
+	@Resource
 	private AccountsMapper accountsMapper;
 
+	@Resource
 	private OtherAccountsMapper otherAccountsMapper;
 
 	@Resource
-	public void setAccountsMapper(AccountsMapper accountsMapper) {
-		this.accountsMapper = accountsMapper;
-	}
-
-	@Resource
-	public void setOtherAccountsMapper(OtherAccountsMapper otherAccountsMapper) {
-		this.otherAccountsMapper = otherAccountsMapper;
-	}
+	private MyUserMapper myUserMapper;
 
 	/**
 	 * @function：计算一天的消费总额
@@ -162,51 +158,6 @@ public class AccountsServiceImpl implements AccountsService {
 		return pg;
 	}
 
-	
-	/**
-	 * @function：通过‘年’‘月’获取该月的第一天日期
-	 * @author：cjq
-	 * @date：2014-1-6上午10:19:43
-	 */
-	public String getFirstDay(SettleDto dto) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, dto.getYear());
-		calendar.set(Calendar.MONTH, dto.getMonth()-1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01");
-		String firstDay = sdf.format(calendar.getTime());
-		return firstDay;
-	}
-	
-	/**
-	 * @function：通过‘年’‘月’获取该月的最后一天日期
-	 * @author：cjq
-	 * @date：2014-1-6上午10:21:43
-	 */
-	public String getLastDay(SettleDto dto) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, dto.getYear());
-		calendar.set(Calendar.MONTH, dto.getMonth()-1);
-		int maxDay=calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-" + maxDay);
-		String lastDay = sdf.format(calendar.getTime());
-		return lastDay;
-	}
-
-	/**
-	 * @function：保存月结信息
-	 * @author：cjq
-	 * @date：2014-1-7上午10:03:37
-	 */
-	@Override
-	public boolean saveMonth(String jsonData) {
-		/*JSONObject jo = JSONObject.fromObject(jsonData);
-		JSONArray ja = jo.getJSONArray("rows");
-		List<SettleMonthDto> list = JSONArray.toList(ja, SettleMonthDto.class);
-		boolean flag = accountsDao.saveMonth(list);*/
-		boolean flag = true;
-		return flag;
-	}
-
 	@Override
 	public AccountsDto queryDtoById(String id) {
 		AccountsDto dto = null;
@@ -273,5 +224,17 @@ public class AccountsServiceImpl implements AccountsService {
 		}
 
 		return new ResultDto(ReturnCode.SUCCESS);
+	}
+
+	@Override
+	public ResultDto settleQuery(QueryDto dto) {
+		List<SettleDto> list = accountsMapper.selectSettle();
+		return new ResultDto(ReturnCode.SUCCESS, list);
+	}
+
+	@Override
+	public ResultDto usersQuery() {
+		List list = myUserMapper.selectByExample(null);
+		return new ResultDto(ReturnCode.SUCCESS, list);
 	}
 }

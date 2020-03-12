@@ -14,12 +14,14 @@ public interface AccountsService {
 	ResultDto validateExist(String flag, String addDate);//判断该天该人物的记录是否存在
 
 	Pagination<AccountsDto> queryBills(QueryDto dto);//条件查询每天的消费记录
-	
-	boolean saveMonth(String jsonData);//保存月结信息
 
 	AccountsDto queryDtoById(String id);
 
 	ResultDto updateAccounts(AccountsDto dto);
 
 	ResultDto updateInitOther(QueryDto dto);
+
+	ResultDto settleQuery(QueryDto dto);
+
+	ResultDto usersQuery();
 }

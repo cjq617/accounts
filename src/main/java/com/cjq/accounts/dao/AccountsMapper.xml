@@ -50,6 +50,13 @@
     <result column="football" property="football" jdbcType="REAL" />
     <collection property="otherAccountsList" resultMap="com.cjq.accounts.dao.OtherAccountsMapper.DtoResultMap"/>
   </resultMap>
+  <resultMap id="settleResultMap" type="com.cjq.accounts.dto.SettleDto" >
+    <result column="months" property="months" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="total_food" property="totalFood" jdbcType="DECIMAL" />
+    <result column="supermarket" property="supermarket" jdbcType="DECIMAL" />
+    <result column="total" property="total" jdbcType="DECIMAL" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -573,5 +580,20 @@
     from accounts a
     left join other_accounts oa on oa.accounts_id = a.id
     where a.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectSettle" resultMap="settleResultMap" parameterType="map">
+    select DATE_FORMAT(add_date,'%Y-%m') as months, flag,
+    cast(
+    sum(total_food) AS DECIMAL (18, 2)
+    ) as total_food,
+    cast(
+    sum(supermarket) AS DECIMAL (18, 2)
+    ) as supermarket,
+    cast(
+    sum(total) AS DECIMAL (18, 2)
+    ) as total
+    from accounts
+    group by DATE_FORMAT(add_date,'%Y-%m'), flag
+    order by add_date desc
   </select>
 </mapper>

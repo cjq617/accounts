@@ -1,25 +1,56 @@
 package com.cjq.accounts.dto;
 
+import java.math.BigDecimal;
+
 public class SettleDto {
 
-	private int year;
-	
-	private int month;
+	private String months;
 
-	public int getYear() {
-		return year;
+	private String flag;
+
+	private BigDecimal totalFood;
+
+	private BigDecimal supermarket;
+
+	private BigDecimal total;
+
+	public String getMonths() {
+		return months;
 	}
 
-	public void setYear(int year) {
-		this.year = year;
+	public void setMonths(String months) {
+		this.months = months;
 	}
 
-	public int getMonth() {
-		return month;
+	public String getFlag() {
+		return flag;
 	}
 
-	public void setMonth(int month) {
-		this.month = month;
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
+	public BigDecimal getTotalFood() {
+		return totalFood;
+	}
+
+	public void setTotalFood(BigDecimal totalFood) {
+		this.totalFood = totalFood;
+	}
+
+	public BigDecimal getSupermarket() {
+		return supermarket;
+	}
+
+	public void setSupermarket(BigDecimal supermarket) {
+		this.supermarket = supermarket;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
 }
