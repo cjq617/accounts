@@ -7,6 +7,12 @@ import org.springframework.util.StringUtils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -391,28 +397,81 @@ public class DateUtil {
         return cal1.compareTo(now) <= 0 && cal2.compareTo(now) >= 0;
     }
 
-    /**
+/*    *//**
      * 获取给定日期的当月第一天
      *
      * @param date
      * @return
-     */
+     *//*
     public static String getFirstDayStrOfMonth(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-01");
         return sdf.format(date.getTime());
     }
 
-    /**
+    *//**
      * 获取给定日期的当月最后一天
      *
      * @param date
      * @return
-     */
+     *//*
     public static String getLastDayStrOfMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-" + maxDay);
         return sdf.format(date.getTime());
+    }*/
+
+    public static LocalDateTime dateToLocalDateTime(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(instant, zone);
+    }
+
+    public static LocalDate dateToLocalDate(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        return localDateTime.toLocalDate();
+    }
+
+    public static String getFirstDayStrOfMonth(Date date) {
+        return getFirstDayStrOfMonth(dateToLocalDate(date));
+    }
+
+    public static String getFirstDayStrOfMonth(LocalDate date) {
+        return date.with(TemporalAdjusters.firstDayOfMonth()).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    public static String getLastDayStrOfMonth(Date date) {
+        return getLastDayStrOfMonth(dateToLocalDate(date));
+    }
+
+    public static String getLastDayStrOfMonth(LocalDate date) {
+        return date.with(TemporalAdjusters.lastDayOfMonth()).format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    public static String appendStartTime(String dateStr) {
+        if (!StringUtils.hasText(dateStr)) {
+            throw new IllegalArgumentException("参数为空");
+        } else {
+            return dateStr + " 00:00:00";
+        }
+    }
+
+    public static String appendEndTime(String dateStr) {
+        if (!StringUtils.hasText(dateStr)) {
+            throw new IllegalArgumentException("参数为空");
+        } else {
+            return dateStr + " 23:59:59";
+        }
+    }
+
+    public static Date stringToDate(String dateStr) {
+        return localDateToDate(LocalDate.parse(dateStr));
+    }
+
+    public static Date localDateToDate(LocalDate localDate) {
+        ZoneId zone = ZoneId.systemDefault();
+        Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
+        return Date.from(instant);
     }
 }

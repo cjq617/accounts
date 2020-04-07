@@ -237,4 +237,30 @@ public class AccountsServiceImpl implements AccountsService {
 		List list = myUserMapper.selectByExample(null);
 		return new ResultDto(ReturnCode.SUCCESS, list);
 	}
+
+	@Override
+	public ResultDto monthDetail(String month, String flag) {
+		String date = month + "-01";
+		String startDate = DateUtil.appendStartTime(DateUtil.getFirstDayStrOfMonth(DateUtil.stringToDate(date)));
+		String endDate = DateUtil.appendEndTime(DateUtil.getLastDayStrOfMonth(DateUtil.stringToDate(date)));
+		List<AccountsDto> list = accountsMapper.selectMonthDetails(startDate, endDate, flag);
+		AccountsDto dto = list.get(0);
+		dto.setAddDate(month);
+		dto.setFlag(flag);
+
+		List<OtherAccountsDto> otherAccountsList = accountsMapper.selectMonthDetailsOther(startDate, endDate, flag);
+		BigDecimal otherTotal = BigDecimal.ZERO;
+		if(otherAccountsList != null && !otherAccountsList.isEmpty()) {
+			for(OtherAccountsDto other : otherAccountsList) {
+				otherTotal = otherTotal.add(other.getOtherPrice());
+			}
+			OtherAccountsDto total = new OtherAccountsDto();
+			total.setOther("其他总计");
+			total.setOtherPrice(otherTotal);
+			total.setAddDate(month);
+			otherAccountsList.add(total);
+		}
+		dto.setOthers(otherAccountsList);
+		return new ResultDto(ReturnCode.SUCCESS, dto);
+	}
 }

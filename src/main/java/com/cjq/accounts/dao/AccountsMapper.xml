@@ -57,6 +57,12 @@
     <result column="supermarket" property="supermarket" jdbcType="DECIMAL" />
     <result column="total" property="total" jdbcType="DECIMAL" />
   </resultMap>
+  <resultMap id="otherResultMap" type="com.cjq.accounts.dto.OtherAccountsDto">
+    <result column="add_date" property="addDate" jdbcType="DATE" />
+    <result column="accounts_id" property="accountsId" jdbcType="INTEGER" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="other_price" property="otherPrice" jdbcType="DECIMAL" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -595,5 +601,19 @@
     from accounts
     group by DATE_FORMAT(add_date,'%Y-%m'), flag
     order by add_date desc
+  </select>
+  <select id="selectMonthDetails" resultMap="DtoResultMap" parameterType="map">
+    select sum(breakfast) as breakfast, sum(lunch) as lunch, sum(supper) as supper, sum(egg) as egg, sum(fruit) as fruit,
+    sum(drink) as drink, sum(food) as food, sum(rice) as rice, sum(cake) as cake, sum(supermarket) as supermarket, sum(traffic) as traffic,
+    sum(soy) as soy, sum(gass) as gass, sum(phone) as phone, sum(rent) as rent, sum(total_food) as total_food, sum(total) as total, sum(football) as football
+    from accounts
+    where add_date >= #{startDate} and #{endDate} >= add_date and flag = #{flag}
+  </select>
+  <select id="selectMonthDetailsOther" resultMap="otherResultMap" parameterType="map">
+    select a.add_date, o.other, o.other_price
+    from accounts a
+    join other_accounts o on a.id = o.accounts_id
+    where a.add_date >= #{startDate} and #{endDate} >= a.add_date and a.flag = #{flag}
+    order by a.add_date
   </select>
 </mapper>

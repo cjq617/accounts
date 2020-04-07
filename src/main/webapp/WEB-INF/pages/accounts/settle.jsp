@@ -49,7 +49,7 @@
             </div>
             <div style="margin-top: 40px;">
                 <div v-for="bill in billList" class="lyy_order" v-cloak>
-                    <div class="lyy_order_top container">
+                    <div class="lyy_order_top container" @click="showMonthDetail(bill.months, bill.flag)">
                         <div class="title fl" style="width: 20%">
                             {{bill.months}}
                         </div>
@@ -108,6 +108,9 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            showMonthDetail : function(months, flag) {
+                window.open(contextPath + "/accounts/monthDetail?month="+months+"&flag="+flag);
             }
         }
     });

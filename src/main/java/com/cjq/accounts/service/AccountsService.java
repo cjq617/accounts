@@ -24,4 +24,6 @@ public interface AccountsService {
 	ResultDto settleQuery(QueryDto dto);
 
 	ResultDto usersQuery();
+
+	ResultDto monthDetail(String month, String flag);
 }

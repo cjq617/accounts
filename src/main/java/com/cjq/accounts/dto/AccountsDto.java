@@ -52,6 +52,8 @@ public class AccountsDto {
 
 	private List<OtherAccounts> otherAccountsList;
 
+	private List<OtherAccountsDto> others;
+
 	public Integer getId() {
 		return id;
 	}
@@ -234,5 +236,13 @@ public class AccountsDto {
 
 	public void setOtherAccountsList(List<OtherAccounts> otherAccountsList) {
 		this.otherAccountsList = otherAccountsList;
+	}
+
+	public List<OtherAccountsDto> getOthers() {
+		return others;
+	}
+
+	public void setOthers(List<OtherAccountsDto> others) {
+		this.others = others;
 	}
 }

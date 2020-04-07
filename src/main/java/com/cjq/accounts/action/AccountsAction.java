@@ -161,4 +161,17 @@ public class AccountsAction{
 	public ResultDto usersQuery() {
 		return  accountsService.usersQuery();
 	}
+
+	@RequestMapping("/monthDetail")
+	public String monthDetail(String month, String flag, Model model) {
+		model.addAttribute("month", month);
+		model.addAttribute("flag", flag);
+		return "accounts/monthDetail";
+	}
+
+	@RequestMapping(value = "/monthDetail", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultDto monthDetail(String month, String flag) {
+		return  accountsService.monthDetail(month, flag);
+	}
 }
